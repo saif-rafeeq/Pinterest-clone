@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.7.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="shortcut icon" href="/images/pinterest-logo-png-1984.png" type="image/x-icon">
+  <style>
+    #profilebtn::after {
+      content: "your profile";
+      position: absolute;
+      color: white;
+      width: 210%;
+      border-radius: 30px;
+      font-weight: 500;
+      font-size: 1vmax;
+      height: 70%;
+      background-color: black;
+      bottom: -90%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* left: %; */
+      /* display: none; */
+      opacity: 0;
+      /* transform: translateX(-50%); */
+      /* right: 0%; */
+    }
+
+    #profilebtn:hover::after {
+      opacity: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="home w-full relative ">
+    <div class="page1 w-full p-[0.10px] h-screen relative">
+      <div class="p-nav w-full px-2 h-16 fixed z-30 flex items-center justify-center gap-[4vw] bg-white fixed z-30  max-sm:text-[3vmin]">
+        <img class="w-8" src="/images/pinterest-logo-png-1984.png" alt="" />
+        <a class=" rounded-lg text-[2.6vmin] max-md:text-[3.5vmin] " href="/feed">Home</a>
+        <a class=" rounded-lg text-[2.6vmin] max-md:text-[3.5vmin]" href="/create">Create</a>
+        <div id="inpdiv"
+          class="  px-1 w-[70vmax] h-3/4 bg-[#dadada] rounded-full outline-sky-400 relative flex items-center max-md:w-[30vmin] max-md:ml-0">
+          <i class="ri-search-line font-semibold text-gray-500 mt-1"></i>
+          <input type="text" name="search" id="searchinp" placeholder="search"
+            class=" w-full h-full bg-transparent ml-2 text-[1.3vmaxw] outline-none">
+          <div
+            class="search-div absolute w-[97%] h-[50vh] right-0 top-[115%] pt-4 overflow-hidden bg-[#dadada] rounded-3xl overflow-y-auto hidden max-md:w-[15rem] max-md:h-[35vh] max-md:-left-[5rem]">
+          </div>
+        </div>
+        <a href="/profile">
+          <button id="profilebtn"
+            class="h-[3rem] relative w-[3rem] flex items-center justify-center cursor-pointer rounded-full bg-[#f2f0f0] hover:bg-[#E2E2E2] font-normal text-[1.7vmax] border-2 border-black max-md:h-[2rem] max-md:w-[2rem] max-md:items-center">
+            <h3>
+              <%=firstLetter%>
+            </h3>
+          </button>
+        </a>
+        <a href="/logout">
+          <button id="loginbtn"
+            class="cursor-pointer h-[2.2rem] w-[5.2rem] text-[1rem] rounded-xl bg-[#f73b59] hover:bg-[#E60023] text-white max-md:h-[2.4rem] max-md:w-[3.2rem] max-md:text-[.75rem]">
+            Log out
+          </button>
+        </a>
+
+      </div>
+      <div class="content w-full h-[90vh] mt-16 max-md:h-[92vh] ">
+        <div class="w-full h-[13vh] flex items-center justify-between text-[2vmax] px-8 border-2 border-[#dadada] max-md:h-[8vh] max-md:px-5">
+          <h1>Create Pin</h1>
+          <div id="changebtn" class="flex items-center justify-center gap-3 opacity-0">
+            <h6 class="text-[1.2vmax] max-md:text-[1.5vmax]">Changes stored!</h6>
+            <button id="loginbtn"
+              class="cursor-pointer h-[2.2rem] w-[5.2rem] text-[1rem] rounded-3xl bg-[#f73b59] hover:bg-[#E60023] text-white max-md:h-[2.4rem] max-md:w-[4rem] max-md:text-[.8rem]">
+              Publish
+            </button>
+          </div>
+        </div>
+        <div class="w-full h-[77vh] flex items-center justify-center  gap-20 flex-wrap content-center max-md:pt-3">
+          <div id="choosefile" class="w-[22vmax] h-[30vmax] cursor-pointer bg-[#dadada] rounded-3xl flex items-center justify-center">
+            <div class="text-center">
+              <i class="ri-chat-upload-fill text-[2.5vmax]"></i>
+              <h1 class="text-[1.5vmax] mt-2">Choose a file it here</h1>
+            </div>
+          </div>
+          <div class="w-[40vmax] h-[20vmax] bg-[#dadada] rounded-3xl flex items-center ">
+            <div class="w-full">
+              <form id="form" action="/createpost" method="post" class="p-5 " enctype="multipart/form-data">
+                <input hidden type="file" id="file" name="postimage">
+                <label for="title" class="text-sm">Title</label> <br>
+                <input type="text" placeholder="Add a title" id="title" name="title"
+                  class="w-full h-[4vmax] text-black outline-sky-400 pl-3 rounded-2xl border-2 border-[#dadada]"> <br> <br>
+                <label for="description">Description</label> <br>
+                <input type="text" name="description" id="description" placeholder="Add a detailed description"
+                  class="w-full h-[4vmax] text-black outline-sky-400 pl-3 rounded-2xl border-2 border-[#dadada]">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js"
+    integrity="sha512-b94Z6431JyXY14iSXwgzeZurHHRNkLt9d6bAHt7BZT38eqV+GyngIi/tVye4jBKPYQ2lBdRs0glww4fmpuLRwA==" crossorigin="anonymous"
+    referrerpolicy="no-referrer"></script>
+  <script>
+    document.querySelector("#choosefile").addEventListener("click", function () {
+      document.querySelector("#file").click()
+    })
+    document.querySelector("#file").addEventListener("change", function () {
+      document.querySelector("#changebtn").style.opacity = 100
+      document.querySelector("#choosefile").innerText = "File uploaded succesfully"
+      document.querySelector("#choosefile").classList.add("text-[1.5vmax]", "font-medium")
+      document.querySelector("#choosefile").style.color = "green"
+    })
+    document.querySelector("#changebtn").addEventListener('click', function () {
+      document.querySelector("#form").submit()
+    })
+    document.querySelector("#inpdiv").addEventListener("click", function (event) {
+      event.stopPropagation(); // Prevent the click event from reaching the document
+      document.querySelector(".search-div").classList.remove("hidden");
+      document.querySelector("#inpdiv").style.outline = "3px solid #93C5FD";
+    });
+
+    document.addEventListener("click", function (event) {
+      if (!event.target.closest("#inpdiv")) {
+        document.querySelector(".search-div").classList.add("hidden");
+        document.querySelector("#inpdiv").style.outline = "none";
+      }
+    });
+    let inp = document.querySelector("#searchinp")
+
+    let clutter = ""
+    inp.addEventListener("input", function () {
+      axios.get(`/search/${inp.value}`)
+        .then(function (data) {
+          clutter = ""
+          data.data.forEach(function (elem) {
+            clutter += `<a href="/postprofile/${elem._id}"> <div class="w-full h-[4vmax] hover:bg-[#eaeaea] flex items-center px-6 gap-2 mt-1">
+              <div class="w-[2.5rem] h-[2.5rem] bg-black rounded-full overflow-hidden">
+                <img class="w-full h-full object-cover" src="/images/uploads/${elem.profilepicture}" alt="">
+              </div>
+              <span>${elem.username}</span>
+            </div>
+          </a>`
+          })
+          document.querySelector(".search-div").innerHTML = clutter
+        })
+    })
+
+  </script>
+</body>
+
+</html>

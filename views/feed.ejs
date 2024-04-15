@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.7.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="shortcut icon" href="/images/pinterest-logo-png-1984.png" type="image/x-icon">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    #overlay {
+      display: none;
+    }
+
+    #postdiv:hover #overlay {
+      display: initial;
+    }
+
+    #profilebtn::after {
+      content: "your profile";
+      position: absolute;
+      color: white;
+      width: 210%;
+      border-radius: 30px;
+      font-weight: 500;
+      font-size: 1vmax;
+      height: 70%;
+      background-color: black;
+      bottom: -90%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* left: %; */
+      /* display: none; */
+      opacity: 0;
+      /* transform: translateX(-50%); */
+      /* right: 0%; */
+    }
+
+    #profilebtn:hover::after {
+      opacity: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="home w-full relative">
+    <div class="page1 w-full p-[0.10px] min-h-screen relative">
+      <div class="p-nav w-full px-2 h-16 fixed z-30 flex items-center justify-center gap-[4vw] bg-white fixed z-30  max-sm:text-[3vmin]">
+        <img class="w-8" src="/images/pinterest-logo-png-1984.png" alt="" />
+        <a class=" rounded-lg text-[2.6vmin] max-md:text-[3.5vmin] " href="/feed">Home</a>
+        <a class=" rounded-lg text-[2.6vmin] max-md:text-[3.5vmin]" href="/create">Create</a>
+        <div id="inpdiv"
+          class="  px-1 w-[70vmax] h-3/4 bg-[#dadada] rounded-full outline-sky-400 relative flex items-center max-md:w-[30vmin] max-md:ml-0">
+          <i class="ri-search-line font-semibold text-gray-500 mt-1"></i>
+          <input type="text" name="search" id="searchinp" placeholder="search"
+            class=" w-full h-full bg-transparent ml-2 text-[1.3vmaxw] outline-none">
+          <div
+            class="search-div absolute w-[97%] h-[50vh] right-0 top-[115%] pt-4 overflow-hidden bg-[#dadada] rounded-3xl overflow-y-auto hidden max-md:w-[15rem] max-md:h-[35vh] max-md:-left-[5rem]">
+          </div>
+        </div>
+        <a href="/profile">
+          <button id="profilebtn"
+            class="h-[3rem] relative w-[3rem] flex items-center justify-center cursor-pointer rounded-full bg-[#f2f0f0] hover:bg-[#E2E2E2] font-normal text-[1.7vmax] border-2 border-black max-md:h-[2rem] max-md:w-[2rem] max-md:items-center">
+            <h3>
+              <%=firstLetter%>
+            </h3>
+          </button>
+        </a>
+        <a href="/logout">
+          <button id="loginbtn"
+            class="cursor-pointer h-[2.2rem] w-[5.2rem] text-[1rem] rounded-xl bg-[#f73b59] hover:bg-[#E60023] text-white max-md:h-[2.4rem] max-md:w-[3.2rem] max-md:text-[.75rem]">
+            Log out
+          </button>
+        </a>
+
+      </div>
+      <div class="content w-full min-h-screen mt-16 px-8 pt-3 flex items-start justify-center max-md:px-2">
+        <div class="w-full min-h-screen flex flex-wrap gap-3 max-md:gap-1">
+          <%post.reverse().forEach(function(elem){%>
+            <a href="/fullpost/<%=elem._id%>" class="cursor-zoom-in">
+              <div id="postdiv"
+                class="w-[17vmax] h-[22vmax] bg-[#dadada] relative rounded-xl overflow-hidden max-md:w-[45vmin] max-md:h-[60vmin]">
+                <div id="overlay" class="w-full h-[90%] bg-white opacity-40 absolute">
+                <!-- <button id="savebtn"
+                  class="cursor-pointer absolute h-[2.2rem] right-0 w-[3.5rem] text-[1rem] rounded-2xl bg-[#f73b59] hover:bg-[#E60023] text-white max-md:h-[2rem] max-md:w-[3rem] max-md:text-[.8rem]">
+                  Save
+                </button> -->
+              </div>
+                <div class="h-[90%]">
+                  <img src="/images/uploads2/<%=elem.postimage%>" class="w-full h-full object-cover object-center" alt="">
+                </div>
+                <a href="/postprofile/<%=elem.user._id%>">
+                  <div class="h-[10%] bg-[#dadada] text-[1.5vmax] font-semibold pl-3 flex items-center gap-2">
+                    <div class="w-6 h-6 bg-black overflow-hidden rounded-full">
+                      <img src="/images/uploads/<%=elem.user.profilepicture%>" alt="">
+                    </div>
+                    <h1 class="text-[1.1vmax] font-semibold text hover:underline ">
+                      <%=elem.user.username%>
+                    </h1>
+                  </div>
+                </a>
+
+              </div>
+            </a>
+            <%})%>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js"
+    integrity="sha512-b94Z6431JyXY14iSXwgzeZurHHRNkLt9d6bAHt7BZT38eqV+GyngIi/tVye4jBKPYQ2lBdRs0glww4fmpuLRwA==" crossorigin="anonymous"
+    referrerpolicy="no-referrer"></script>
+  <script>
+
+    document.querySelector("#inpdiv").addEventListener("click", function (event) {
+      event.stopPropagation(); // Prevent the click event from reaching the document
+      document.querySelector(".search-div").classList.remove("hidden");
+      document.querySelector("#inpdiv").style.outline = "3px solid #93C5FD";
+    });
+
+    document.addEventListener("click", function (event) {
+      if (!event.target.closest("#inpdiv")) {
+        document.querySelector(".search-div").classList.add("hidden");
+        document.querySelector("#inpdiv").style.outline = "none";
+      }
+    });
+    let inp = document.querySelector("#searchinp")
+
+    let clutter = ""
+    inp.addEventListener("input", function () {
+      axios.get(`/search/${inp.value}`)
+        .then(function (data) {
+          clutter = ""
+          data.data.forEach(function (elem) {
+            clutter += `<a href="/postprofile/${elem._id}"> <div class="w-full h-[4vmax] hover:bg-[#eaeaea] flex items-center px-6 gap-2 mt-1">
+              <div class="w-[2.5rem] h-[2.5rem] bg-black rounded-full overflow-hidden">
+                <img class="w-full h-full object-cover" src="/images/uploads/${elem.profilepicture}" alt="">
+              </div>
+              <span>${elem.username}</span>
+            </div>
+          </a>`
+          })
+          document.querySelector(".search-div").innerHTML = clutter
+        })
+    })
+  </script>
+</body>
+
+</html>

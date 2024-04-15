@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.7.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="shortcut icon" href="/images/pinterest-logo-png-1984.png" type="image/x-icon">
+  <style>
+    #profilebtn::after {
+      content: "your profile";
+      position: absolute;
+      color: white;
+      width: 210%;
+      border-radius: 30px;
+      font-weight: 500;
+      font-size: 1vmax;
+      height: 70%;
+      background-color: black;
+      bottom: -90%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* left: %; */
+      /* display: none; */
+      opacity: 0;
+      /* transform: translateX(-50%); */
+      /* right: 0%; */
+    }
+
+    #profilebtn:hover::after {
+      opacity: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="home w-full relative ">
+    <div class="page1 w-full p-[0.10px] h-screen relative">
+      <div class="p-nav w-full px-2 h-16 fixed z-30 flex items-center justify-center gap-[4vw] bg-white fixed z-30  max-sm:text-[3vmin]">
+        <img class="w-8" src="/images/pinterest-logo-png-1984.png" alt="" />
+        <a class=" rounded-lg text-[2.6vmin] max-md:text-[3.5vmin] " href="/feed">Home</a>
+        <a class=" rounded-lg text-[2.6vmin] max-md:text-[3.5vmin]" href="/create">Create</a>
+        <div id="inpdiv"
+          class="  px-1 w-[70vmax] h-3/4 bg-[#dadada] rounded-full outline-sky-400 relative flex items-center max-md:w-[30vmin] max-md:ml-0">
+          <i class="ri-search-line font-semibold text-gray-500 mt-1"></i>
+          <input type="text" name="search" id="searchinp" placeholder="search"
+            class=" w-full h-full bg-transparent ml-2 text-[1.3vmaxw] outline-none">
+          <div
+            class="search-div absolute w-[97%] h-[50vh] right-0 top-[115%] pt-4 overflow-hidden bg-[#dadada] rounded-3xl overflow-y-auto hidden max-md:w-[15rem] max-md:h-[35vh] max-md:-left-[5rem]">
+          </div>
+        </div>
+        <a href="/profile">
+          <button id="profilebtn"
+            class="h-[3rem] relative w-[3rem] flex items-center justify-center cursor-pointer rounded-full bg-[#f2f0f0] hover:bg-[#E2E2E2] font-normal text-[1.7vmax] border-2 border-black max-md:h-[2rem] max-md:w-[2rem] max-md:items-center">
+            <h3>
+              <%=firstLetter%>
+            </h3>
+          </button>
+        </a>
+        <a href="/logout">
+          <button id="loginbtn"
+            class="cursor-pointer h-[2.2rem] w-[5.2rem] text-[1rem] rounded-xl bg-[#f73b59] hover:bg-[#E60023] text-white max-md:h-[2.4rem] max-md:w-[3.2rem] max-md:text-[.75rem]">
+            Log out
+          </button>
+        </a>
+
+      </div>
+      <div class="content w-full flex items-center justify-center min-h-screen mt-16 max-md:h-[92vh] ">
+        <div style="box-shadow: 5px 5px 5px #dadada;"
+          class="w-fit min-h-screen flex items-center justify-center  py-5 flex-wrap content-center max-md:pt-8">
+          <div id="choosefile"
+            class="w-[35vmax] h-[50vmax]  overflow-hidden  bg-[#dadada] rounded-tl-3xl md:rounded-bl-3xl flex items-center justify-center max-md:rounded-tr-3xl">
+            <img class="w-full h-full object-cover" src="/images/uploads2/<%=post.postimage%>" alt="">
+          </div>
+          <div
+            class="w-[35vmax] h-[50vmax] p-[0.01px] flex flex-col relative pt-4 px-2 md:rounded-tr-3xl rounded-br-3xl overflow-hidden  max-md:rounded-bl-3xl ">
+            <div class="flex items-start">
+              <div class="w-full flex items-center justify-between">
+                <div class="flex gap-2">
+                  <div class="overflow-hidden rounded-full w-[3rem] h-[3rem]">
+                    <img class="w-full h-full object-cover" src="/images/uploads/<%=post.user.profilepicture%>" alt="">
+                  </div>
+                  <div>
+                    <a href="/postprofile/<%=post.user._id%>">
+                    <h1 class="text-[1.3vmax] max-md:text-[2vmax] font-semibold">
+                      <%=post.user.username%>
+                    </h1>
+                  </a>
+                    <p class="text-[1vmax] max-md:text-[1.5vmax] font-light">Followers: (<%=post.user.followers.length%>)</p>
+                  </div>
+                </div>
+                  <a href="/follow/<%=post.user._id%>"
+                    class="w-20 h-10 bg-[#dadada] text-[1.3vmax] font-semibold flex items-center justify-center rounded-full max-md:text-[1.8vmax]">
+                    <button>Follow</button>
+                  </a>
+              </div>
+            </div>
+            <div class="w-full h-fit flex flex-col gap-6 mt-2 max-md:gap-2 ">
+              <h1 style="word-wrap: break-word;" class="text-[1.2vmax] max-md:text-[1.4vmax]"><span class="text-[1.5vmax]">Tittle: </span>
+                <%=post.title%>
+              </h1>
+              <h2 style="word-wrap: break-word;" class="text-[1.2vmax] max-md:text-[1.4vmax]"><span class="text-[1.5vmax]">Description: </span>
+                <%=post.description%>
+              </h2>
+              <h1 class="text-[1.5vmax] font-semibold">Comments</h1>
+            </div>
+            <div>
+              <!-- Assuming you are using EJS template engine -->
+              <ul>
+                <% post.comments.forEach(comment=> { %>
+                  <li>
+                   <span class=" flex mt-1 w-fit gap-2  items-center">
+                    <div class="w-6 h-6 bg-black overflow-hidden rounded-full">
+                      <img class="w-full h-full object-cover" src="/images/uploads/<%=comment.user.profilepicture%>" alt="">
+                    </div>
+                   <h1 class="text-lg capitalize font-semibold"><%= comment.user.username %> :</h1>
+                    <span class="font-normal text-base"><%= comment.comment %></span>
+                  </span>
+                   
+                  </li>
+                  <% }); %>
+              </ul>
+
+              <div class="w-full h-fit border-black  absolute bottom-0">
+                <div class="w-full px-4 h-12  flex items-center justify-between ">
+                  <h1 class="text-[1.4vmax]">What do you think?</h1>
+                  <a href="/likes/<%=post._id%>">
+                    <p>❤ (<%=post.likes.length%>)</p>
+                  </a>
+                </div>
+                <div>
+                  <form action="/comment/<%=post._id%>" class="flex w-full items-center justify-evenly">
+                    <input class="w-[80%] h-[4vmax] rounded-full pl-4 outline-none bg-[#dadada]" placeholder="Add a comment" name="comment">
+                    <button class="bg-[#dadada] h-[4vmax] w-[4vmax] text-[1.2vmax] rounded-full">Send</button>
+                  </form>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js"
+  integrity="sha512-b94Z6431JyXY14iSXwgzeZurHHRNkLt9d6bAHt7BZT38eqV+GyngIi/tVye4jBKPYQ2lBdRs0glww4fmpuLRwA==" crossorigin="anonymous"
+  referrerpolicy="no-referrer"></script>
+  <script>
+    document.querySelector("#inpdiv").addEventListener("click", function (event) {
+      event.stopPropagation(); // Prevent the click event from reaching the document
+      document.querySelector(".search-div").classList.remove("hidden");
+      document.querySelector("#inpdiv").style.outline = "3px solid #93C5FD";
+    });
+    
+    document.addEventListener("click", function (event) {
+      if (!event.target.closest("#inpdiv")) {
+        document.querySelector(".search-div").classList.add("hidden");
+        document.querySelector("#inpdiv").style.outline = "none";
+      }
+    });
+    // document.querySelector("#choosefile").addEventListener("click", function () {
+    //   document.querySelector("#file").click()
+    // })
+    // document.querySelector("#file").addEventListener("change", function () {
+    //   document.querySelector("#changebtn").style.opacity = 100
+    //   document.querySelector("#choosefile").innerText = "File uploaded succesfully"
+    //   document.querySelector("#choosefile").classList.add("text-[1.5vmax]", "font-medium")
+    //   document.querySelector("#choosefile").style.color = "green"
+    // })
+    // document.querySelector("#changebtn").addEventListener('click', function () {
+    //   document.querySelector("#form").submit()
+    // })
+
+    let inp = document.querySelector("#searchinp")
+
+    let clutter = ""
+    inp.addEventListener("input", function () {
+      axios.get(`/search/${inp.value}`)
+        .then(function (data) {
+          clutter = ""
+          data.data.forEach(function (elem) {
+            clutter += `<a href="/postprofile/${elem._id}"> <div class="w-full h-[4vmax] hover:bg-[#eaeaea] flex items-center px-6 gap-2 mt-1">
+              <div class="w-[2.5rem] h-[2.5rem] bg-black rounded-full overflow-hidden">
+                <img class="w-full h-full object-cover" src="/images/uploads/${elem.profilepicture}" alt="">
+              </div>
+              <span>${elem.username}</span>
+            </div>
+          </a>`
+          })
+          document.querySelector(".search-div").innerHTML = clutter
+        })
+    })
+
+  </script>
+</body>
+
+</html>
